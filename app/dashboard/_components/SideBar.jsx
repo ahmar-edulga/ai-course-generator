@@ -24,21 +24,21 @@ function SideBar() {
             name:'Explore',
             icon:<HiOutlineSquare3Stack3D />,
             path:'/dashboard/explore'
-        },
-        {
-            id:1,
-            name:'Upgrade',
-            icon:<HiOutlineShieldCheck />,
-            path:'/dashboard/upgrade'
         }
+        // {
+        //     id:1,
+        //     name:'Upgrade',
+        //     icon:<HiOutlineShieldCheck />,
+        //     path:'/dashboard/upgrade'
+        // }
     ]
     const path=usePathname();
   return (
-    <div className='fixed h-full md:w-64 p-5 shadow-md'>
-       <h1 className='font-bold text-2xl bg-clip-text bg-gradient-to-tl from-blue-600 to-violet-600 text-transparent'>EDULGA</h1>
-        {/* <Image src={'/logo.svg'} width={160} height={100} /> */}
+    <div className='fixed h-full md:w-64 px-5 py-2 shadow-md'>
+       {/* <h1 className='font-bold text-2xl bg-clip-text bg-gradient-to-tl from-blue-600 to-violet-600 text-transparent'>EDULGA</h1> */}
+       <Image src={'/edulgaLogo.png'} width={125} height={20}/>
 
-        <hr className='my-5' />
+        <hr className='mt-3 mb-5' />
 
         <ul>
             {Menu.map((item,index)=>(
