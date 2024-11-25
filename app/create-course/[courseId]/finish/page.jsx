@@ -22,7 +22,6 @@ function FinishScreen({params}) {
         .where(and(eq(CourseList.courseId, params?.courseId),
           eq(CourseList?.createdBy, user?.primaryEmailAddress?.emailAddress)))
           setCourse(result[0]);
-          console.log(result);
     }
   return (
     <div className='px-10 md:px-20 lg:px-44 my-7'>
