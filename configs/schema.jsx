@@ -22,5 +22,16 @@ export const Chapters=pgTable('chapters',{
     courseId:varchar('courseid').notNull(),
     chapterId:integer('chapterId').notNull(),
     content:json('content').notNull(),
-    videoId:varchar('videoId').notNull()
+    videoId:varchar('videoId').notNull(),
 })
+
+export const UserCourseCompletions = pgTable(
+    'user_course_completions',
+    {
+      id: serial('id').primaryKey(),
+      userId: varchar('userId').notNull(), // Clerk user ID (string type)
+      chapterId: integer('chapterId').notNull(), // Foreign key to Chapters table
+      isCompleted: boolean('isCompleted').default(false),
+      courseId:varchar('courseid')
+    }
+  );

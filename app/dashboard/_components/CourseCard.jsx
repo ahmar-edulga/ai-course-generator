@@ -7,9 +7,18 @@ import { db } from '@/configs/db';
 import { CourseList } from '@/configs/schema';
 import { eq } from 'drizzle-orm';
 import Link from 'next/link';
+import { Progress } from '@/components/ui/progress';
 
 
 function CourseCard({course,refreshData,displayUser=false}) {
+
+    const getTotalCompletedChapterPerc=(item)=>{
+        let totalCompletedChapter = item?.completedChapters
+        let totalChapter = item?.courseOutput?.course?.chapters?.length || 0;
+        let perc = totalChapter == 0 ? 0 : (totalCompletedChapter / totalChapter) * 100;
+
+            return perc.toFixed(0)
+        }
 
     const handleOnDelete=async()=>{
         const resp=await db.delete(CourseList)
@@ -39,13 +48,13 @@ function CourseCard({course,refreshData,displayUser=false}) {
             </h2>
             
             <p className='text-sm text-gray-400 my-1'>{course?.category}</p>
-            <div className='flex items-center justify-between'>
+            <div className='flex items-center justify-between mb-2'>
                 <h2 className='flex gap-2 items-center
                  p-1 bg-purple-50 text-primary text-sm rounded-sm'>
                     <HiOutlineBookOpen/>{course?.courseOutput?.course?.numberOfChapters} Chapters</h2>
                 <h2 className='text-sm bg-purple-50 text-primary p-1 rounded-sm'>{course?.level}</h2>
-            
             </div>
+                <Progress value={getTotalCompletedChapterPerc(course)} className="h-[7px]" />
           {displayUser&&  <div className='flex gap-2 items-center mt-2'>
                 <Image src={course?.userProfileImage} width={35} height={35}
                 className='rounded-full'

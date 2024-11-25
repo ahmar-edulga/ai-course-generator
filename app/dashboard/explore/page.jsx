@@ -1,12 +1,14 @@
 "use client"
 import { db } from '@/configs/db'
-import { CourseList } from '@/configs/schema'
+import { CourseList, UserCourseCompletions } from '@/configs/schema';
+import { useUser } from '@clerk/nextjs';
+import { desc, eq ,and} from 'drizzle-orm';
 import React, { useEffect, useState } from 'react'
 import CourseCard from '../_components/CourseCard';
 import { Button } from '@/components/ui/button';
 
 function Explore() {
-
+  const { user } = useUser();
   const [courseList,setCourseList]=useState([]);
   const [pageIndex,setPageIndex]=useState(0);
   useEffect(()=>{
@@ -18,7 +20,28 @@ function Explore() {
     .limit(9)
     .offset(pageIndex*9);
     setCourseList(result);
-    console.log(result);
+
+    const coursesWithCompletionCount = await Promise.all(
+      result.map(async (course) => {   
+          const completedChaptersCount = await db.select()
+          .from(UserCourseCompletions)
+          .where(and(eq(UserCourseCompletions.userId, user?.id),
+          eq(UserCourseCompletions.isCompleted, true),
+          eq(UserCourseCompletions.courseId,course.courseId ),
+      
+        ))
+          .execute();
+        return {
+          ...course,
+          completedChapters: completedChaptersCount.length,
+        };
+      })
+    )
+    setCourseList(coursesWithCompletionCount);
+
+
+
+
   }
 
   return (
