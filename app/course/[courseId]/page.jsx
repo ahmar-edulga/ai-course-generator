@@ -20,7 +20,6 @@ function Course({params}) {
         .where(eq(CourseList?.courseId,params?.courseId))
 
         setCourse(result[0]);
-        console.log(result);
     }
 
   return (

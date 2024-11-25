@@ -26,8 +26,8 @@ function CourseStart({params}) {
     const GetCourse=async()=>{
         const result=await db.select().from(CourseList)
         .where(eq(CourseList?.courseId,params?.courseId));
-
         setCourse(result[0]);
+
         
 
     }
@@ -39,7 +39,6 @@ function CourseStart({params}) {
         eq(Chapters.courseId,course?.courseId)));
 
         setChapterContent(result[0]);
-        console.log(result);
 
     }
 

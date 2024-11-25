@@ -35,8 +35,6 @@ function EditChapters({course,index,refreshData}) {
             courseOutput:course?.courseOutput
         }).where(eq(CourseList?.id,course?.id))
         .returning({id:CourseList.id});
-
-        console.log(result);
         refreshData(true)
     }
   return (

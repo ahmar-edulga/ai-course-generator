@@ -28,7 +28,6 @@ function CourseLayout({ params }) {
         eq(CourseList?.createdBy, user?.primaryEmailAddress?.emailAddress)))
     
         setCourse(result[0]);
-        console.log(result);
   }
 
   const GenerateChapterContent=async()=>{
@@ -38,7 +37,6 @@ function CourseLayout({ params }) {
     setLoading(true);
 
       const PROMPT='Explain the concept in Detail on Topic:'+course?.name+', Chapter:'+chapter?.name+', in JSON Format with list of array with field as title, description in detail, Code Example(Code field in <precode> format) if applicable';
-      console.log("content prompt::::::::::::::::::::::::::::::::::::",PROMPT)
       // if(index<3)
       // {
           try{
